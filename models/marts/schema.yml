@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: mart_order_overview
+    description: "Order-level mart table for analyzing basket size, order timing, and reorder behavior."
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order."
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        description: "Unique identifier for each customer."
+        tests:
+          - not_null
+
+      - name: basket_size
+        description: "Number of products in the order."
+
+      - name: order_reorder_rate
+        description: "Share of reordered products within the order."
+
+  - name: mart_product_performance
+    description: "Product-level mart table for product performance, reorder rate, and product segmentation."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "Name of the product."
+
+      - name: total_order_count
+        description: "Total number of product-order records."
+
+      - name: reorder_rate
+        description: "Product reorder rate calculated as reorder_count divided by total_order_count."
+
+      - name: product_segment
+        description: "Product segment based on order volume and reorder rate."
+
+  - name: mart_reorder_analysis
+    description: "Aisle and department level mart table for category-based reorder analysis."
+    columns:
+      - name: department
+        description: "Main product department."
+
+      - name: aisle
+        description: "Product aisle or subcategory."
+
+      - name: total_order_count
+        description: "Total number of product-order records for the aisle and department."
+
+      - name: reorder_rate
+        description: "Reorder rate at aisle and department level."
+
+  - name: mart_customer_behavior
+    description: "Customer-level mart table for analyzing purchase frequency, reorder behavior, basket size, and customer segments."
+    columns:
+      - name: user_id
+        description: "Unique identifier for each customer."
+        tests:
+          - not_null
+          - unique
+
+      - name: total_orders
+        description: "Total number of orders placed by the customer."
+
+      - name: customer_reorder_rate
+        description: "Customer-level reorder rate."
+
+      - name: avg_basket_size
+        description: "Average number of products per order for the customer."
+
+      - name: customer_segment
+        description: "Customer segment based on order frequency and reorder rate."
