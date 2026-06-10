@@ -1,0 +1,133 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned order-level data from the Instacart dataset."
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order."
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        description: "Unique identifier for each customer."
+        tests:
+          - not_null
+
+      - name: eval_set
+        description: "Dataset split label such as prior, train, or test."
+        tests:
+          - accepted_values:
+              values: ['prior', 'train', 'test']
+
+      - name: order_number
+        description: "Sequential order number for each user."
+
+      - name: order_day_of_week
+        description: "Day of week represented as a number from 0 to 6."
+
+      - name: order_hour_of_day
+        description: "Hour of day represented as a number from 0 to 23."
+
+      - name: days_since_prior_order
+        description: "Number of days since the user's previous order."
+
+      - name: is_first_order
+        description: "Boolean flag indicating whether this is the user's first order."
+
+  - name: stg_products
+    description: "Cleaned product-level data from the Instacart dataset."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "Name of the product."
+        tests:
+          - not_null
+
+      - name: aisle_id
+        description: "Identifier of the aisle where the product belongs."
+        tests:
+          - not_null
+
+      - name: department_id
+        description: "Identifier of the department where the product belongs."
+        tests:
+          - not_null
+
+  - name: stg_aisles
+    description: "Cleaned aisle-level data."
+    columns:
+      - name: aisle_id
+        description: "Unique identifier for each aisle."
+        tests:
+          - not_null
+          - unique
+
+      - name: aisle
+        description: "Name of the aisle."
+        tests:
+          - not_null
+
+  - name: stg_departments
+    description: "Cleaned department-level data."
+    columns:
+      - name: department_id
+        description: "Unique identifier for each department."
+        tests:
+          - not_null
+          - unique
+
+      - name: department
+        description: "Name of the department."
+        tests:
+          - not_null
+
+  - name: stg_order_products_prior
+    description: "Cleaned product-level records from prior orders."
+    columns:
+      - name: order_id
+        description: "Identifier of the order."
+        tests:
+          - not_null
+
+      - name: product_id
+        description: "Identifier of the product."
+        tests:
+          - not_null
+
+      - name: add_to_cart_order
+        description: "The order in which the product was added to the cart."
+
+      - name: reordered
+        description: "Indicates whether the product was reordered. 1 means reordered, 0 means first-time order."
+
+      - name: is_reordered
+        description: "Boolean flag indicating whether the product was reordered."
+
+  - name: stg_order_products_train
+    description: "Cleaned product-level records from train orders."
+    columns:
+      - name: order_id
+        description: "Identifier of the order."
+        tests:
+          - not_null
+
+      - name: product_id
+        description: "Identifier of the product."
+        tests:
+          - not_null
+
+      - name: add_to_cart_order
+        description: "The order in which the product was added to the cart."
+
+      - name: reordered
+        description: "Indicates whether the product was reordered. 1 means reordered, 0 means first-time order."
+
+      - name: is_reordered
+        description: "Boolean flag indicating whether the product was reordered."
